@@ -1,0 +1,42 @@
+<template>
+  <div>
+    <user-profile :info="userInfo">
+      <div slot="username">{{ userInfo.id }}</div>
+      <span slot="time">Joined {{ userInfo.created }}, </span>
+      <span slot="karma">{{ userInfo.karma }}</span>
+    </user-profile>
+
+  </div>
+</template>
+
+<script>
+  import UserProfile from "../components/UserProfile";
+
+  export default {
+    components: {
+      UserProfile,
+    },
+    computed: {
+      userInfo(){
+        return this.$store.state.user;
+      }
+    },
+    created(){
+      const username = this.$route.params.id;
+      this.$store.dispatch('FETCH_USER', username);
+    },
+    /*computed: {
+      ...mapState([
+        'user',
+      ]),
+    },
+    created(){
+      const username = this.$route.params.id;
+      this.$store.dispatch('FETCH_USER', username)
+    },*/
+  }
+</script>
+
+<style scoped>
+
+</style>
